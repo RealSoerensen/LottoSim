@@ -63,7 +63,7 @@ def game(stdscr, lines, mode):
         except curses.error:
             stdscr.clear()
             stdscr.addstr(0, 0, "Error, terminal too small")
-            stdscr.addstr(1, 0, "Please make the terminal bigger and reset the application")
+            stdscr.addstr(1, 0, "Please make the terminal bigger and restart the application")
             stdscr.getkey()
             break
 
@@ -77,10 +77,11 @@ def game(stdscr, lines, mode):
         stdscr.addstr(0, 0, "You won!")
         stdscr.addstr(1, 0, "It took {} weeks or {} years to win the lotto".format(weeks, round(weeks/52)))
         stdscr.addstr(2, 0, "You made {}kr".format(profit))  
+        stdscr.refresh()
 
 def main(stdscr):
-    stdscr.clear()
     while True:
+        stdscr.clear()
         stdscr.addstr(0, 0, "Welcome to the lotto game!")
         stdscr.addstr(1, 0, "How many lines do you want per ticket? 6kr per line.\n")
         stdscr.addstr(2, 0, "Enter a number between 1 and 25: ")
@@ -89,11 +90,9 @@ def main(stdscr):
         try:
             lines = int(lines)
         except ValueError:
-            stdscr.clear()
             stdscr.addstr(0, 0, "Invalid input.\n")
             continue
         if lines < 1 or lines > 25:    
-            stdscr.clear()
             stdscr.addstr(0, 0, "Invalid input.\n")
             continue
         break
@@ -101,7 +100,7 @@ def main(stdscr):
     while True:
         stdscr.clear()
         stdscr.addstr(0, 0, "Welcome to the lotto game!")
-        stdscr.addstr(1, 0, "Same numbers [1] or different numbers? [2]\n")
+        stdscr.addstr(1, 0, "Same numbers [1] or different numbers [2]?\n")
         curses.echo()
         mode = stdscr.getstr()
         try:
@@ -112,7 +111,7 @@ def main(stdscr):
             continue
         if mode == 1 or mode == 2:    
             break
-    game(stdscr, lines, mode)
     stdscr.refresh()
+    game(stdscr, lines, mode)
 
 wrapper(main)
