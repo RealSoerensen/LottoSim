@@ -76,7 +76,8 @@ def game(stdscr, lines, mode):
     if seven_right == 1:
         stdscr.addstr(0, 0, "You won!")
         stdscr.addstr(1, 0, "It took {} weeks or {} years to win the lotto".format(weeks, round(weeks/52)))
-        stdscr.addstr(2, 0, "You made {}kr".format(profit))  
+        stdscr.addstr(2, 0, "You made {}kr".format(profit))
+        curses.echo()
         stdscr.refresh()
 
 def main(stdscr):
